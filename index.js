@@ -1008,7 +1008,7 @@ function renderSkillsTab() {
             <div class="fnvrpg-skill-stepper">
                 <button class="fnvrpg-skill-pt-btn" data-key="${d.key}" data-dir="-1"
                         ${!canDec ? 'disabled' : ''}>−</button>
-                <div class="fnvrpg-skill-val ${valCls}" data-key="${d.key}">${total}</div>
+                <div class="fnvrpg-skill-val ${valCls}" data-key="${d.key}" title="Click to set directly">${total}</div>
                 <button class="fnvrpg-skill-pt-btn" data-key="${d.key}" data-dir="1"
                         ${!canInc ? 'disabled' : ''}>+</button>
             </div>
@@ -1056,6 +1056,48 @@ function renderSkillsTab() {
         }
         saveChatData();
         renderSkillsTab();
+    });
+
+    // Click value directly → inline input
+    $('#fnvrpg-skills-list').off('click.edit', '.fnvrpg-skill-val').on('click.edit', '.fnvrpg-skill-val', function () {
+        const $val = $(this);
+        if ($val.find('input').length) return;
+        const key = String($val.data('key'));
+        const c   = cur();
+        const def = SKILL_DEFS.find(d => d.key === key);
+        if (!def) return;
+        const fl     = skillFloor(def, c);
+        const oldVal = c.skills[key] ?? fl;
+
+        const $inp = $(`<input type="number" class="fnvrpg-skill-inline-input" min="${fl}" max="100" value="${oldVal}">`);
+        $val.empty().append($inp);
+        const el = /** @type {HTMLInputElement|undefined} */ ($inp[0]); if (el) { el.focus(); el.select(); }
+
+        const commit = () => {
+            const raw    = parseInt(String($inp.val())) || oldVal;
+            const newVal = Math.max(fl, Math.min(100, raw));
+            const delta  = newVal - oldVal;
+            if (delta > 0) {
+                const pts = c.skillPoints || 0;
+                if (pts < delta) {
+                    showToast(`Need ${delta} point(s), only ${pts} available.`, 'warning');
+                    renderSkillsTab(); return;
+                }
+                c.skills[key]  = newVal;
+                c.skillPoints  = pts - delta;
+            } else if (delta < 0) {
+                c.skills[key]  = newVal;
+                c.skillPoints  = (c.skillPoints || 0) - delta; // delta is negative, so subtract = add
+            }
+            saveChatData();
+            renderSkillsTab();
+        };
+
+        $inp.on('blur', commit);
+        $inp.on('keydown', function (e) {
+            if (e.key === 'Enter')  { $inp.off('blur'); commit(); }
+            if (e.key === 'Escape') { renderSkillsTab(); }
+        });
     });
 }
 

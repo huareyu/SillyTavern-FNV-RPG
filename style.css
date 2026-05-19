@@ -710,6 +710,7 @@
 .fnvrpg-skill-val {
     min-width: 32px;
     text-align: center;
+    cursor: pointer;
     background: var(--fnv-bg);
     color: var(--fnv-text);
     font-size: 13px;
@@ -722,9 +723,27 @@
     line-height: 1.4;
 }
 
+.fnvrpg-skill-val:hover { border-color: var(--fnv-accent-dim); color: var(--fnv-accent); }
+
 .fnvrpg-skill-val.sk-tag  { color: var(--fnv-caps); }
 .fnvrpg-skill-val.sk-high { color: #7ddd7d; }
 .fnvrpg-skill-val.sk-max  { color: #aaffaa; }
+
+.fnvrpg-skill-inline-input {
+    width: 100%;
+    background: var(--fnv-surface2);
+    border: 1px solid var(--fnv-accent);
+    border-radius: 3px;
+    color: var(--fnv-accent);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 2px;
+    outline: none;
+    box-shadow: 0 0 4px var(--fnv-accent-glow);
+}
+.fnvrpg-skill-inline-input::-webkit-inner-spin-button,
+.fnvrpg-skill-inline-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 
 /* ── Perks ── */
 .fnvrpg-perk-points-bar {
