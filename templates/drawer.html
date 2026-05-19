@@ -1,0 +1,373 @@
+<!-- Fallout: New Vegas RPG Extension -->
+<div id="fnvrpg_drawer" class="drawer">
+    <div class="drawer-toggle">
+        <div class="fnvrpg-icon-wrap">
+            <div id="fnvrpg_drawer_icon"
+                 class="drawer-icon fa-solid fa-vault fa-fw closedIcon interactable"
+                 title="Fallout: New Vegas RPG"
+                 tabindex="0"></div>
+            <span id="fnvrpg-level-badge" class="fnvrpg-level-badge"></span>
+        </div>
+    </div>
+
+    <div id="fnvrpg_drawer_content" class="drawer-content closedDrawer">
+
+        <!-- ── Header ── -->
+        <div class="fnvrpg-header">
+            <div class="fnvrpg-title">
+                <i class="fa-solid fa-vault"></i>
+                Fallout RPG
+            </div>
+            <span id="fnvrpg-inject-badge" class="fnvrpg-badge fnvrpg-badge-on">● ACTIVE</span>
+        </div>
+
+        <!-- ── Character Selector ── -->
+        <div class="fnvrpg-char-selector">
+            <div class="fnvrpg-char-card active" data-char="user" id="fnvrpg-card-user">
+                <div class="fnvrpg-char-card-inner">
+                    <i class="fa-solid fa-user fnvrpg-char-icon"></i>
+                    <div class="fnvrpg-char-info">
+                        <div class="fnvrpg-char-role">PLAYER</div>
+                        <div class="fnvrpg-char-name" id="fnvrpg-user-display-name">The Courier</div>
+                        <div class="fnvrpg-char-sub" id="fnvrpg-user-display-sub">Lv.1 · Neutral</div>
+                    </div>
+                </div>
+                <label class="fnvrpg-inject-label" title="Include in AI prompt">
+                    <input type="checkbox" id="fnvrpg-track-user" checked>
+                    <span>Inject</span>
+                </label>
+            </div>
+
+            <div class="fnvrpg-char-card" data-char="char" id="fnvrpg-card-char">
+                <div class="fnvrpg-char-card-inner">
+                    <i class="fa-solid fa-comment-dots fnvrpg-char-icon"></i>
+                    <div class="fnvrpg-char-info">
+                        <div class="fnvrpg-char-role">CHARACTER</div>
+                        <div class="fnvrpg-char-name" id="fnvrpg-char-display-name">—</div>
+                        <div class="fnvrpg-char-sub" id="fnvrpg-char-display-sub">Lv.1</div>
+                    </div>
+                </div>
+                <label class="fnvrpg-inject-label" title="Include in AI prompt">
+                    <input type="checkbox" id="fnvrpg-track-char" checked>
+                    <span>Inject</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- ── Tabs ── -->
+        <div class="fnvrpg-tabs">
+            <button class="fnvrpg-tab active" data-tab="status">Status</button>
+            <button class="fnvrpg-tab" data-tab="special">SPECIAL</button>
+            <button class="fnvrpg-tab" data-tab="skills">Skills</button>
+            <button class="fnvrpg-tab" data-tab="perks">
+                Perks
+                <span id="fnvrpg-perk-badge" class="fnvrpg-perk-dot" style="display:none;"></span>
+            </button>
+            <button class="fnvrpg-tab" data-tab="reputation">Rep</button>
+            <button class="fnvrpg-tab" data-tab="config">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════
+             Tab Contents
+        ══════════════════════════════════════════════════ -->
+        <div class="fnvrpg-tab-contents">
+
+            <!-- ═══ STATUS ═══ -->
+            <div id="fnvrpg-tab-status" class="fnvrpg-tab-content active">
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-field-row">
+                        <label class="fnvrpg-lbl">Name</label>
+                        <input type="text" id="fnvrpg-name" class="fnvrpg-input fnvrpg-input-grow" placeholder="Character name" maxlength="40">
+                    </div>
+                    <div class="fnvrpg-field-row">
+                        <label class="fnvrpg-lbl">Level</label>
+                        <div class="fnvrpg-stepper">
+                            <button class="fnvrpg-step-btn" id="fnvrpg-level-dec">−</button>
+                            <span class="fnvrpg-step-val" id="fnvrpg-level-val">1</span>
+                            <button class="fnvrpg-step-btn" id="fnvrpg-level-inc">+</button>
+                        </div>
+                        <label class="fnvrpg-lbl" style="margin-left:10px;">Karma</label>
+                        <select id="fnvrpg-karma" class="fnvrpg-select">
+                            <option value="Good">Good</option>
+                            <option value="Neutral" selected>Neutral</option>
+                            <option value="Evil">Evil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- XP -->
+                <div class="fnvrpg-stat-block">
+                    <div class="fnvrpg-bar-header">
+                        <span class="fnvrpg-bar-label">Experience</span>
+                        <span id="fnvrpg-xp-text" class="fnvrpg-bar-num">0 / 200</span>
+                    </div>
+                    <div class="fnvrpg-bar-track">
+                        <div class="fnvrpg-bar fnvrpg-bar-xp" id="fnvrpg-xp-bar" style="width:0%"></div>
+                    </div>
+                    <div class="fnvrpg-field-row fnvrpg-compact">
+                        <input type="number" id="fnvrpg-xp-amount" class="fnvrpg-input fnvrpg-input-num" value="50" min="0" placeholder="XP">
+                        <button class="fnvrpg-btn fnvrpg-btn-add" id="fnvrpg-xp-add">+ Add XP</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-xp-set">Set total</button>
+                    </div>
+                </div>
+
+                <!-- HP -->
+                <div class="fnvrpg-stat-block">
+                    <div class="fnvrpg-bar-header">
+                        <span class="fnvrpg-bar-label">Hit Points</span>
+                        <span id="fnvrpg-hp-text" class="fnvrpg-bar-num fnvrpg-hp-clr">95 / 95</span>
+                    </div>
+                    <div class="fnvrpg-bar-track">
+                        <div class="fnvrpg-bar fnvrpg-bar-hp" id="fnvrpg-hp-bar" style="width:100%"></div>
+                    </div>
+                    <div class="fnvrpg-field-row fnvrpg-compact">
+                        <button class="fnvrpg-btn fnvrpg-btn-dmg" id="fnvrpg-hp-dmg">− Damage</button>
+                        <input type="number" id="fnvrpg-hp-delta" class="fnvrpg-input fnvrpg-input-num" value="10" min="0">
+                        <button class="fnvrpg-btn fnvrpg-btn-heal" id="fnvrpg-hp-heal">+ Heal</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-hp-full">Full</button>
+                    </div>
+                </div>
+
+                <!-- AP -->
+                <div class="fnvrpg-stat-block">
+                    <div class="fnvrpg-bar-header">
+                        <span class="fnvrpg-bar-label">Action Points</span>
+                        <span id="fnvrpg-ap-text" class="fnvrpg-bar-num fnvrpg-ap-clr">75 / 75</span>
+                    </div>
+                    <div class="fnvrpg-bar-track">
+                        <div class="fnvrpg-bar fnvrpg-bar-ap" id="fnvrpg-ap-bar" style="width:100%"></div>
+                    </div>
+                    <div class="fnvrpg-field-row fnvrpg-compact">
+                        <button class="fnvrpg-btn fnvrpg-btn-dmg" id="fnvrpg-ap-use">− Use</button>
+                        <input type="number" id="fnvrpg-ap-delta" class="fnvrpg-input fnvrpg-input-num" value="10" min="0">
+                        <button class="fnvrpg-btn fnvrpg-btn-heal" id="fnvrpg-ap-restore">+ Restore</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-ap-full">Full</button>
+                    </div>
+                </div>
+
+                <!-- DT & Caps -->
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-field-row">
+                        <label class="fnvrpg-lbl">Damage Threshold</label>
+                        <div class="fnvrpg-stepper">
+                            <button class="fnvrpg-step-btn" id="fnvrpg-dt-dec">−</button>
+                            <input type="number" id="fnvrpg-dt" class="fnvrpg-step-val fnvrpg-step-input" min="0" max="99" value="0">
+                            <button class="fnvrpg-step-btn" id="fnvrpg-dt-inc">+</button>
+                        </div>
+                    </div>
+                    <div class="fnvrpg-field-row">
+                        <label class="fnvrpg-lbl"><i class="fa-solid fa-coins" style="color:#d4a017;"></i> Caps</label>
+                        <div class="fnvrpg-stepper fnvrpg-caps-stepper">
+                            <button class="fnvrpg-step-btn fnvrpg-btn-dmg" id="fnvrpg-caps-sub">−</button>
+                            <input type="number" id="fnvrpg-caps" class="fnvrpg-step-val fnvrpg-step-input fnvrpg-caps-val" min="0" value="0">
+                            <button class="fnvrpg-step-btn fnvrpg-btn-heal" id="fnvrpg-caps-add">+</button>
+                        </div>
+                        <input type="number" id="fnvrpg-caps-delta" class="fnvrpg-input fnvrpg-input-num" value="100" min="0" title="Amount">
+                    </div>
+                </div>
+
+                <!-- SPECIAL summary -->
+                <div class="fnvrpg-stat-block">
+                    <div class="fnvrpg-section-label">S.P.E.C.I.A.L.</div>
+                    <div class="fnvrpg-special-mini" id="fnvrpg-special-mini"></div>
+                </div>
+
+            </div><!-- /status -->
+
+            <!-- ═══ S.P.E.C.I.A.L. ═══ -->
+            <div id="fnvrpg-tab-special" class="fnvrpg-tab-content">
+                <p class="fnvrpg-tab-note">Values 1–10. HP and AP recalculate automatically.</p>
+                <div id="fnvrpg-special-list"></div>
+                <div class="fnvrpg-stat-block" style="margin-top:8px;">
+                    <div class="fnvrpg-section-label">Derived Stats</div>
+                    <div id="fnvrpg-derived" class="fnvrpg-derived-grid"></div>
+                </div>
+            </div>
+
+            <!-- ═══ SKILLS ═══ -->
+            <div id="fnvrpg-tab-skills" class="fnvrpg-tab-content">
+
+                <!-- Skill points bar -->
+                <div class="fnvrpg-skill-pts-bar">
+                    <div class="fnvrpg-skill-pts-info">
+                        <span class="fnvrpg-lbl">Skill Points</span>
+                        <span id="fnvrpg-skill-pts-num" class="fnvrpg-skill-pts-num">0 available</span>
+                    </div>
+                    <div id="fnvrpg-skill-pts-notice" class="fnvrpg-perk-notice" style="display:none;">
+                        <i class="fa-solid fa-bolt"></i>
+                        <strong id="fnvrpg-skill-pts-count">0</strong> point(s) ready to spend — use + on any skill!
+                    </div>
+                    <div class="fnvrpg-field-row fnvrpg-compact" style="margin-top:7px;">
+                        <input type="number" id="fnvrpg-skpts-amount" class="fnvrpg-input fnvrpg-input-num" value="10" min="0">
+                        <button class="fnvrpg-btn fnvrpg-btn-add" id="fnvrpg-skpts-add">+ Add</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-skpts-set">Set total</button>
+                    </div>
+                </div>
+
+                <p class="fnvrpg-tab-note" style="margin-top:8px;">
+                    <i class="fa-solid fa-star" style="color:#d4a017;"></i> = Tagged (+15, max 3).
+                    Points earned each level-up (10 + INT×2). − refunds a point.
+                </p>
+                <div id="fnvrpg-skills-list"></div>
+            </div>
+
+            <!-- ═══ PERKS ═══ -->
+            <div id="fnvrpg-tab-perks" class="fnvrpg-tab-content">
+
+                <!-- Perk points status -->
+                <div id="fnvrpg-perk-points-bar" class="fnvrpg-perk-points-bar">
+                    <div class="fnvrpg-perk-pts-info">
+                        <span class="fnvrpg-lbl">Perk Points</span>
+                        <span id="fnvrpg-perk-pts-text" class="fnvrpg-perk-pts-num">0 / 0</span>
+                    </div>
+                    <div id="fnvrpg-perk-available-notice" class="fnvrpg-perk-notice" style="display:none;">
+                        <i class="fa-solid fa-star"></i>
+                        <strong id="fnvrpg-perk-pending-count">0</strong> perk point(s) available — choose below!
+                    </div>
+                </div>
+
+                <!-- Active perks -->
+                <div class="fnvrpg-section-label" style="margin-bottom:5px;">Active Perks</div>
+                <div id="fnvrpg-perks-list" class="fnvrpg-perks-list"></div>
+                <div id="fnvrpg-perks-empty" class="fnvrpg-empty-hint">No perks selected yet.</div>
+
+                <!-- Perk catalog toggle -->
+                <div style="margin-top:10px;">
+                    <button class="fnvrpg-btn fnvrpg-btn-outline" id="fnvrpg-catalog-toggle" style="width:100%;">
+                        <i class="fa-solid fa-book-open"></i> Browse Perk Catalog
+                    </button>
+                </div>
+
+                <!-- Perk catalog (hidden by default) -->
+                <div id="fnvrpg-perk-catalog-wrap" style="display:none; margin-top:8px;">
+                    <input type="text" id="fnvrpg-perk-search"
+                           class="fnvrpg-input" style="width:100%;box-sizing:border-box;margin-bottom:6px;"
+                           placeholder="Search perks...">
+                    <div id="fnvrpg-perk-catalog"></div>
+                </div>
+
+                <!-- Custom perk -->
+                <div style="margin-top:10px; display:flex; flex-direction:column; gap:5px;">
+                    <div class="fnvrpg-field-row">
+                        <input type="text" id="fnvrpg-perk-custom-input" class="fnvrpg-input fnvrpg-input-grow"
+                               placeholder="Custom perk name..." list="fnvrpg-perk-datalist">
+                        <datalist id="fnvrpg-perk-datalist"></datalist>
+                    </div>
+                    <div class="fnvrpg-field-row">
+                        <input type="text" id="fnvrpg-perk-custom-desc" class="fnvrpg-input fnvrpg-input-grow"
+                               placeholder="Description (optional)...">
+                        <button class="fnvrpg-btn fnvrpg-btn-add" id="fnvrpg-perk-custom-add">Add</button>
+                    </div>
+                </div>
+
+            </div><!-- /perks -->
+
+            <!-- ═══ REPUTATION ═══ -->
+            <div id="fnvrpg-tab-reputation" class="fnvrpg-tab-content">
+                <p class="fnvrpg-tab-note">Add factions relevant to this chat. Only non-Neutral entries are injected into the prompt.</p>
+                <div id="fnvrpg-rep-list" class="fnvrpg-rep-list"></div>
+                <div id="fnvrpg-rep-empty" class="fnvrpg-empty-hint">No factions tracked yet.</div>
+                <div class="fnvrpg-field-row" style="margin-top:10px;">
+                    <input type="text" id="fnvrpg-rep-faction-input" class="fnvrpg-input fnvrpg-input-grow"
+                           placeholder="Faction name (e.g. NCR, Caesar's Legion...)"
+                           list="fnvrpg-faction-suggestions">
+                    <datalist id="fnvrpg-faction-suggestions">
+                        <option value="NCR">
+                        <option value="Caesar's Legion">
+                        <option value="The Strip">
+                        <option value="Freeside">
+                        <option value="Followers of the Apocalypse">
+                        <option value="Brotherhood of Steel">
+                        <option value="Powder Gangers">
+                        <option value="Goodsprings">
+                        <option value="Jacobstown">
+                        <option value="Novac">
+                        <option value="Boomers">
+                        <option value="Kings">
+                        <option value="Omertas">
+                        <option value="White Glove Society">
+                        <option value="Chairmen">
+                        <option value="Great Khans">
+                    </datalist>
+                    <button class="fnvrpg-btn fnvrpg-btn-add" id="fnvrpg-rep-add">Add</button>
+                </div>
+            </div>
+
+            <!-- ═══ CONFIG ═══ -->
+            <div id="fnvrpg-tab-config" class="fnvrpg-tab-content">
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-section-label">Extension</div>
+                    <label class="fnvrpg-checkbox-row">
+                        <input type="checkbox" id="fnvrpg-cfg-enabled" checked>
+                        <span>Enable extension</span>
+                    </label>
+                    <label class="fnvrpg-checkbox-row">
+                        <input type="checkbox" id="fnvrpg-cfg-inject" checked>
+                        <span>Inject character sheet into AI context</span>
+                    </label>
+                    <label class="fnvrpg-checkbox-row">
+                        <input type="checkbox" id="fnvrpg-cfg-perk-descs">
+                        <span>Include perk descriptions in AI context</span>
+                    </label>
+                </div>
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-section-label">Injection Position</div>
+                    <p class="fnvrpg-tab-note" style="margin-top:0;">
+                        How many messages from the end to insert the character sheet.
+                        0 = appended at end. 1 = before the last message.
+                    </p>
+                    <div class="fnvrpg-field-row">
+                        <label class="fnvrpg-lbl">Messages from end</label>
+                        <input type="number" id="fnvrpg-cfg-position" class="fnvrpg-input fnvrpg-input-num" min="0" max="30" value="1">
+                    </div>
+                    <div class="fnvrpg-quick-pos">
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost fnvrpg-pos-btn" data-pos="0">End</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost fnvrpg-pos-btn" data-pos="1">−1 msg</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost fnvrpg-pos-btn" data-pos="3">−3 msgs</button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost fnvrpg-pos-btn" data-pos="5">−5 msgs</button>
+                    </div>
+                </div>
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-section-label">XP Rate</div>
+                    <p class="fnvrpg-tab-note" style="margin-top:0;">How much XP the AI awards per response.</p>
+                    <div class="fnvrpg-xp-rate-btns">
+                        <button class="fnvrpg-xp-rate-btn" data-rate="none">No XP</button>
+                        <button class="fnvrpg-xp-rate-btn" data-rate="low">Low</button>
+                        <button class="fnvrpg-xp-rate-btn" data-rate="medium">Medium</button>
+                        <button class="fnvrpg-xp-rate-btn" data-rate="high">High</button>
+                        <button class="fnvrpg-xp-rate-btn" data-rate="ai">AI Decides</button>
+                    </div>
+                </div>
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-section-label">Notes (sent to AI)</div>
+                    <textarea id="fnvrpg-notes" class="fnvrpg-textarea"
+                        placeholder="Extra info: equipped weapon, active quests, companions, current location..."></textarea>
+                </div>
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-section-label">Data</div>
+                    <div class="fnvrpg-btn-row">
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-export">
+                            <i class="fa-solid fa-download"></i> Export JSON
+                        </button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-import">
+                            <i class="fa-solid fa-upload"></i> Import JSON
+                        </button>
+                        <button class="fnvrpg-btn fnvrpg-btn-danger" id="fnvrpg-reset">
+                            <i class="fa-solid fa-rotate-left"></i> Reset Character
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- /config -->
+
+        </div><!-- /tab-contents -->
+    </div><!-- /drawer-content -->
+</div><!-- /drawer -->

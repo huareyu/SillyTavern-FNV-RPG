@@ -1,0 +1,12 @@
+{
+    "display_name": "Fallout RPG",
+    "loading_order": 101,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "User",
+    "version": "1.0.0",
+    "homePage": "",
+    "auto_update": false
+}
