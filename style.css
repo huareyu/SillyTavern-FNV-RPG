@@ -1235,3 +1235,113 @@
     border-color: var(--fnv-danger);
     color: #cc5555;
 }
+
+/* ── SPECIAL point pool bar ── */
+.fnvrpg-special-pts-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: var(--fnv-surface2);
+    border: 1px solid var(--fnv-border-soft);
+    border-radius: 5px;
+    padding: 7px 10px;
+    margin-bottom: 8px;
+}
+
+.fnvrpg-special-pts-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fnvrpg-special-pts-num {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fnv-accent);
+}
+
+.fnvrpg-special-pts-num.pts-warn  { color: #cc5555; }
+.fnvrpg-special-pts-num.pts-empty { color: var(--fnv-text-muted); }
+.fnvrpg-special-pts-num.pts-unlim { color: #7ec87e; }
+
+/* ── Stackable perk badge ── */
+.fnvrpg-stack-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--fnv-accent);
+    background: var(--fnv-accent-glow);
+    border: 1px solid var(--fnv-accent-dim);
+    border-radius: 3px;
+    padding: 0 4px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.fnvrpg-stack-badge.stack-full {
+    color: var(--fnv-text-muted);
+    background: transparent;
+    border-color: var(--fnv-border);
+}
+
+/* ── Saved character profiles ── */
+.fnvrpg-profiles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.fnvrpg-profile-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: var(--fnv-surface2);
+    border: 1px solid var(--fnv-border-soft);
+    border-radius: 5px;
+    padding: 7px 9px;
+}
+
+.fnvrpg-profile-item:hover {
+    border-color: var(--fnv-accent-dim);
+}
+
+.fnvrpg-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+}
+
+.fnvrpg-profile-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fnv-accent);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fnvrpg-profile-sub {
+    font-size: 10px;
+    color: var(--fnv-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fnvrpg-profile-btns {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.fnvrpg-profile-btns .fnvrpg-btn {
+    padding: 3px 7px;
+    font-size: 11px;
+    line-height: 1.4;
+}

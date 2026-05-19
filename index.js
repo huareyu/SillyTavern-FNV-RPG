@@ -49,80 +49,66 @@ const REP_LEVELS = ['Idolized', 'Liked', 'Accepted', 'Neutral', 'Shunned', 'Hate
 // FNV Perk Catalog — every 2 levels starting at level 2
 const PERK_CATALOG = [
     // ── Traits (character creation) ──
-    { name: 'Good Natured',       minLv: 1, cat: 'Traits', req: null,          desc: '+5 Barter/Medicine/Repair/Science/Speech. −5 combat skills.' },
-    { name: 'Built to Destroy',   minLv: 1, cat: 'Traits', req: null,          desc: '+3% crit chance. Weapon condition degrades 15% faster.' },
-    { name: 'Four Eyes',          minLv: 1, cat: 'Traits', req: null,          desc: '+1 PER with glasses; −1 PER without.' },
-    { name: 'Small Frame',        minLv: 1, cat: 'Traits', req: null,          desc: '+1 AGI. 25% extra limb damage received.' },
-    { name: 'Fast Shot',          minLv: 1, cat: 'Traits', req: null,          desc: '20% faster fire rate with Guns/Energy Weapons; −20% accuracy.' },
-    { name: 'Heavy Handed',       minLv: 1, cat: 'Traits', req: null,          desc: '+20% melee/unarmed damage; −60% critical damage.' },
-    { name: 'Trigger Discipline', minLv: 1, cat: 'Traits', req: null,          desc: '20% slower fire rate; +20% accuracy with Guns/Energy Weapons.' },
-    { name: 'Logan\'s Loophole',  minLv: 1, cat: 'Traits', req: null,          desc: 'Level cap 30. Chems never cause addiction; last 2× longer.' },
+    { name: 'Good Natured',       minLv: 1, cat: 'Traits', req: null,           desc: '+5 Barter/Medicine/Repair/Science/Speech. −5 combat skills.' },
+    { name: 'Built to Destroy',   minLv: 1, cat: 'Traits', req: null,           desc: 'Weapons jam, overheat, or break more often, but moments of violence tend to become spectacularly effective.' },
+    { name: 'Four Eyes',          minLv: 1, cat: 'Traits', req: null,           desc: '+1 PER with glasses; −1 PER without.' },
+    { name: 'Small Frame',        minLv: 1, cat: 'Traits', req: null,           desc: '+1 AGI. 25% extra limb damage received.' },
+    { name: 'Fast Shot',          minLv: 1, cat: 'Traits', req: null,           desc: 'Act before thinking. Quickdraw moments, impulsive attacks, and rapid reactions happen almost reflexively. Precision sometimes suffers under stress.' },
+    { name: 'Heavy Handed',       minLv: 1, cat: 'Traits', req: null,           desc: 'The main thing is a good swing, not aiming. Your strikes are brutal but not always precise.' },
+    { name: 'Logan\'s Loophole',  minLv: 1, cat: 'Traits', req: null,           desc: 'You\'ll be forever young — level cap 30. Immunity to chem addiction and chems last twice as long, but after level 30 no more XP, perks, or skill points.' },
     // ── General ──
     { name: 'Intense Training',   minLv: 2,  cat: 'General', req: null,          desc: '+1 to any S.P.E.C.I.A.L. attribute.' },
     { name: 'Swift Learner',      minLv: 2,  cat: 'General', req: 'INT 4',       desc: '+10% XP gained from all sources.' },
-    { name: 'Educated',           minLv: 4,  cat: 'General', req: 'INT 4',       desc: '+3 skill points per level up.' },
-    { name: 'Comprehension',      minLv: 4,  cat: 'General', req: 'INT 4',       desc: 'Skill books give +2 instead of +1.' },
     { name: 'Night Person',       minLv: 2,  cat: 'General', req: null,          desc: '+2 INT and +2 PER between 6 PM–6 AM.' },
-    { name: 'Pack Rat',           minLv: 8,  cat: 'General', req: 'END 5',       desc: 'Small items weigh 50% less.' },
-    { name: 'Strong Back',        minLv: 8,  cat: 'General', req: 'STR 5, END 5',desc: '+50 lbs carry weight.' },
-    { name: 'Tag!',               minLv: 8,  cat: 'General', req: null,          desc: 'Tag an additional skill (+15).' },
-    { name: 'Retention',          minLv: 4,  cat: 'General', req: 'INT 7',       desc: 'Skill books permanently increase skill by +3.' },
     { name: 'Heave, Ho!',         minLv: 2,  cat: 'General', req: 'STR 5',       desc: 'Thrown weapons have more velocity and range.' },
+    { name: 'Educated',           minLv: 4,  cat: 'General', req: 'INT 4',       desc: '+3 skill points per level up.' },
+    { name: 'Tag!',               minLv: 8,  cat: 'General', req: null,          desc: 'Tag an additional skill (+15).' },
+    { name: 'Strong Back',        minLv: 8,  cat: 'General', req: 'STR 5, END 5',desc: '+50 lbs carry weight.' },
     // ── Combat ──
     { name: 'Rapid Reload',       minLv: 2,  cat: 'Combat',  req: 'AGI 5',       desc: 'Reload speed for all guns +25%.' },
-    { name: 'Gunslinger',         minLv: 6,  cat: 'Combat',  req: 'AGI 6',       desc: '+25% accuracy with one-handed firearms in VATS.' },
-    { name: 'Commando',           minLv: 8,  cat: 'Combat',  req: 'AGI 4',       desc: '+25% accuracy with two-handed firearms in VATS.' },
-    { name: 'Finesse',            minLv: 10, cat: 'Combat',  req: null,          desc: '+5% critical hit chance.' },
-    { name: 'Better Criticals',   minLv: 16, cat: 'Combat',  req: 'PER 6, LUK 6',desc: 'Critical hits deal 50% more damage.' },
-    { name: 'Sniper',             minLv: 12, cat: 'Combat',  req: 'AGI 6, PER 6',desc: 'Scoring a critical hit while sniping is much more likely.' },
-    { name: 'Bloody Mess',        minLv: 6,  cat: 'Combat',  req: null,          desc: '+5% overall damage dealt.' },
+    { name: 'Bloody Mess',        minLv: 6,  cat: 'Combat',  req: null,          desc: 'By some strange twist of fate, people around you tend to die in the most gruesome and agonizing ways imaginable.' },
     { name: 'Toughness',          minLv: 6,  cat: 'Combat',  req: 'END 5',       desc: '+3 to Damage Threshold.' },
-    { name: 'Stonewall',          minLv: 8,  cat: 'Combat',  req: 'STR 6, END 6',desc: 'You cannot be knocked down in combat.' },
-    { name: 'Math Wrath',         minLv: 10, cat: 'Combat',  req: 'Science 70',  desc: 'VATS AP costs reduced by 10%.' },
-    { name: 'Run \'n\' Gun',      minLv: 8,  cat: 'Combat',  req: 'Guns 45',     desc: 'Move at normal speed using pistols and SMGs.' },
-    { name: 'Spray and Pray',     minLv: 12, cat: 'Combat',  req: null,          desc: 'Companions take 80% less damage from your area-effect weapons.' },
+    { name: 'Demolition Expert',  minLv: 6,  cat: 'Combat',  req: 'Explosives 50',desc: 'When it comes to explosives, no one compares to you. Mines detonate exactly when they should — and with far greater destructive force.' },
+    { name: 'Stonewall',          minLv: 8,  cat: 'Combat',  req: 'STR 6, END 6',desc: 'You have a much lower chance of being knocked down in combat.' },
     { name: 'Hit the Deck',       minLv: 8,  cat: 'Combat',  req: 'AGI 6',       desc: '+25 DT against explosive weapons.' },
-    { name: 'Piercing Strike',    minLv: 12, cat: 'Combat',  req: 'Unarmed 70',  desc: 'Unarmed and melee attacks ignore enemy DT.' },
-    { name: 'Weapon Handling',    minLv: 10, cat: 'Combat',  req: 'END 6',       desc: 'Weapon STR requirements reduced by 2.' },
-    { name: 'Demolition Expert',  minLv: 6,  cat: 'Combat',  req: 'Explosives 50',desc: '+25% damage with all explosives.' },
-    { name: 'Light Touch',        minLv: 6,  cat: 'Combat',  req: 'AGI 6',       desc: '+5% critical hit chance in light armor.' },
-    { name: 'Living Anatomy',     minLv: 8,  cat: 'Combat',  req: 'Medicine 70', desc: '+5% damage to humans and non-feral ghouls.' },
-    { name: 'Silent Running',     minLv: 12, cat: 'Combat',  req: 'AGI 6, Sneak 50', desc: 'Run without penalty to Sneak.' },
+    { name: 'Living Anatomy',     minLv: 8,  cat: 'Combat',  req: 'Medicine 70', desc: 'You know the weaknesses of living creatures. One-time +10% Medicine bonus; deal +5 damage to all living targets.' },
+    { name: 'Finesse',            minLv: 10, cat: 'Combat',  req: null,          desc: 'Your strikes are always precise. You deal modest damage but land critical hits far more often.' },
+    { name: 'Weapon Handling',    minLv: 10, cat: 'Combat',  req: 'END 6',       desc: 'You can wield far larger weapons than a person your size normally could.' },
+    { name: 'Sniper',             minLv: 12, cat: 'Combat',  req: 'AGI 6, PER 6',desc: 'You have mastered firearms. Any successful hit becomes a critical, provided a lucky roll.' },
+    { name: 'Silent Running',     minLv: 12, cat: 'Combat',  req: 'AGI 6, Sneak 50', desc: '+10 Sneak; running no longer increases your chance of detection.' },
     // ── Survival ──
     { name: 'Cannibal',           minLv: 4,  cat: 'Survival',req: null,          desc: 'Eat human corpses to restore Hit Points.' },
+    { name: 'Them\'s Good Eatin\'',minLv: 6, cat: 'Survival',req: 'Survival 55', desc: 'Any corpse you eat has a 25% chance to give a Thin Red Paste.' },
     { name: 'Life Giver',         minLv: 12, cat: 'Survival',req: 'END 6',       desc: '+30 max Hit Points.' },
+    { name: 'Rad Absorption',     minLv: 12, cat: 'Survival',req: 'END 7',       desc: 'Slowly regenerate from radiation poisoning.' },
     { name: 'Chem Resistant',     minLv: 16, cat: 'Survival',req: 'Medicine 60', desc: '50% less likely to develop chem addictions.' },
     { name: 'Chemist',            minLv: 14, cat: 'Survival',req: 'Medicine 60', desc: 'Chems last twice as long.' },
-    { name: 'Rad Absorption',     minLv: 12, cat: 'Survival',req: 'END 7',       desc: 'Slowly regenerate from radiation poisoning.' },
-    { name: 'Travel Light',       minLv: 6,  cat: 'Survival',req: 'Survival 45', desc: 'Move 10% faster in light or no armor.' },
-    { name: 'Pack Animal',        minLv: 4,  cat: 'Survival',req: 'STR 6',       desc: '+50 lbs carry weight from pack animal companions.' },
-    { name: 'Them\'s Good Eatin\'',minLv: 6, cat: 'Survival',req: 'Survival 55', desc: 'Any corpse you eat has a 25% chance to give a Thin Red Paste.' },
     // ── Social ──
-    { name: 'Lady Killer',        minLv: 2,  cat: 'Social',  req: null,          desc: '+10% damage against females; unique dialogue with women.' },
-    { name: 'Black Widow',        minLv: 2,  cat: 'Social',  req: null,          desc: '+10% damage against males; unique dialogue with men.' },
-    { name: 'Confirmed Bachelor', minLv: 2,  cat: 'Social',  req: null,          desc: '+10% damage against males; unique dialogue options.' },
-    { name: 'Cherchez La Femme',  minLv: 2,  cat: 'Social',  req: null,          desc: '+10% damage against females; unique dialogue options.' },
-    { name: 'Terrifying Presence',minLv: 6,  cat: 'Social',  req: 'Speech 70',   desc: 'Unlocks intimidating dialogue options.' },
-    { name: 'Ferocious Loyalty',  minLv: 6,  cat: 'Social',  req: 'CHR 6',       desc: 'When HP drops below 50%, companions gain +100 DT.' },
+    { name: 'Lady Killer',        minLv: 2,  cat: 'Social',  req: null,          desc: 'Some women become more open around you. Flirtation feels smooth, improvisational, and socially dangerous in the right situations.' },
+    { name: 'Black Widow',        minLv: 2,  cat: 'Social',  req: null,          desc: 'You know how to weaponize attraction and emotional intimacy against men.' },
+    { name: 'Confirmed Bachelor', minLv: 2,  cat: 'Social',  req: null,          desc: 'You easily recognize masculine ego, loneliness, suppressed attraction, and insecurity in other men.' },
+    { name: 'Cherchez La Femme',  minLv: 2,  cat: 'Social',  req: null,          desc: 'You have an intuitive understanding of emotional dynamics between women.' },
+    { name: 'Terrifying Presence',minLv: 6,  cat: 'Social',  req: 'Speech 70',   desc: 'You possess an unnerving aura of controlled violence. People often lower their voice around you without realizing why.' },
     { name: 'Animal Friend',      minLv: 10, cat: 'Social',  req: 'CHR 6',       desc: 'Animals will not attack you unless provoked.' },
     // ── Exploration ──
     { name: 'Fortune Finder',     minLv: 6,  cat: 'Exploration',req: null,       desc: 'Find more bottle caps in containers.' },
     { name: 'Scrounger',          minLv: 8,  cat: 'Exploration',req: null,       desc: 'Find more ammunition in containers.' },
-    { name: 'Jury Rigging',       minLv: 14, cat: 'Exploration',req: 'Repair 90',desc: 'Repair any item using a similar category item.' },
-    { name: 'Nerd Rage!',         minLv: 10, cat: 'Exploration',req: 'INT 5',    desc: 'When HP drops below 20%: +50 DT, +20% damage.' },
+    { name: 'Jury Rigging',       minLv: 14, cat: 'Exploration',req: 'Repair 90',desc: 'You see functionality where others see junk. Broken machines, improvised weapons, and incompatible parts immediately suggest possible solutions.' },
 ];
+
+// Stackable perks — key: perk name, value: max times it can be taken
+/** @type {Record<string, number>} */
+const STACKABLE_PERKS = { 'Intense Training': 3 };
 
 // ── Perk stat effects ────────────────────────────────────────────────────────
 // Numeric bonuses stacked from all active perks. Skills (Good Natured) are
 // applied directly to stored char.skills when the perk is added/removed.
+/** @type {Record<string, any>} */
 const PERK_EFFECTS = {
     'Toughness':     { dt: 3 },
     'Life Giver':    { maxHp: 30 },
     'Strong Back':   { carryWt: 50 },
-    'Pack Rat':      { carryWt: 25 },
-    'Pack Animal':   { carryWt: 50 },
     'Finesse':       { critPct: 5 },
-    'Light Touch':   { critPct: 5 },
     'Swift Learner': { xpMult: 10 },
     'Educated':      { skillRate: 3 },
     'Good Natured':  { skills: { barter: 5, medicine: 5, repair: 5, science: 5, speech: 5,
@@ -188,6 +174,7 @@ function createDefaultChar(name = '') {
         notes: '',
         skillPoints: 0,
         perkDescs: {},
+        specialUnlimited: false,
     };
 }
 
@@ -202,7 +189,8 @@ function createDefaultChatData() {
 
 // ── Global state ──────────────────────────────────────────────────────────────
 
-const DEFAULT_SETTINGS = { enabled: true, injectContext: true, injectionPosition: 1, xpRate: 'medium', injectPerkDescs: false };
+/** @type {{enabled:boolean,injectContext:boolean,injectionPosition:number,xpRate:string,injectPerkDescs:boolean,savedProfiles:any[]}} */
+const DEFAULT_SETTINGS = { enabled: true, injectContext: true, injectionPosition: 1, xpRate: 'medium', injectPerkDescs: false, savedProfiles: [] };
 
 let settings  = { ...DEFAULT_SETTINGS };
 let chatData  = createDefaultChatData();
@@ -268,8 +256,9 @@ function deepMergeChar(saved, defaults) {
     result.tagSkills   = Array.isArray(saved.tagSkills) ? [...saved.tagSkills] : [];
     result.perks       = Array.isArray(saved.perks)     ? [...saved.perks]     : [];
     result.reputation  = { ...(saved.reputation || {}) };
-    result.skillPoints = saved.skillPoints ?? 0;
-    result.perkDescs   = { ...(saved.perkDescs || {}) };
+    result.skillPoints     = saved.skillPoints ?? 0;
+    result.perkDescs       = { ...(saved.perkDescs || {}) };
+    result.specialUnlimited = saved.specialUnlimited ?? false;
     return result;
 }
 
@@ -321,6 +310,12 @@ function syncDerived(char) {
 
 // Helper
 const cur = () => chatData[activeChar];
+
+const SPECIAL_POOL = 40;
+/** @param {{special: Record<string,number>, specialUnlimited?: boolean}} char */
+const specialSpent = (char) => Object.values(char.special).reduce((s, v) => s + v, 0);
+/** @param {{special: Record<string,number>, specialUnlimited?: boolean}} char */
+const specialPtsLeft = (char) => SPECIAL_POOL - specialSpent(char);
 
 // ── Prompt builder ────────────────────────────────────────────────────────────
 
@@ -883,7 +878,21 @@ function renderStatusTab() {
 // ── Render: SPECIAL ───────────────────────────────────────────────────────────
 
 function renderSpecialTab() {
-    const sp = cur().special;
+    const c  = cur();
+    const sp = c.special;
+    const pts  = specialPtsLeft(c);
+    const unlim = c.specialUnlimited ?? false;
+
+    // Points counter
+    if (unlim) {
+        $('#fnvrpg-special-pts-num').text('unlimited').removeClass('pts-warn pts-empty').addClass('pts-unlim');
+    } else {
+        const cls = pts < 0 ? 'pts-warn' : pts === 0 ? 'pts-empty' : '';
+        $('#fnvrpg-special-pts-num').text(`${pts} remaining`).attr('class', `fnvrpg-special-pts-num ${cls}`);
+    }
+    $('#fnvrpg-special-unlimited').prop('checked', unlim);
+
+    const canAdd = unlim || pts > 0;
     const html = SPECIAL_DEFS.map(d => {
         const v = sp[d.key];
         const numCls = v <= 3 ? 'sv-low' : v <= 6 ? 'sv-mid' : v <= 8 ? 'sv-high' : 'sv-max';
@@ -891,21 +900,33 @@ function renderSpecialTab() {
             <div class="fnvrpg-spc-abbr-big">${d.abbr}</div>
             <div class="fnvrpg-spc-name">${d.name}</div>
             <div class="fnvrpg-spc-counter">
-                <button class="fnvrpg-spc-btn" data-key="${d.key}" data-dir="-1">−</button>
+                <button class="fnvrpg-spc-btn" data-key="${d.key}" data-dir="-1" ${v <= 1 ? 'disabled' : ''}>−</button>
                 <div class="fnvrpg-spc-numval ${numCls}" id="fnvrpg-sv-${d.key}">${v}</div>
-                <button class="fnvrpg-spc-btn" data-key="${d.key}" data-dir="1">+</button>
+                <button class="fnvrpg-spc-btn" data-key="${d.key}" data-dir="1" ${v >= 10 || !canAdd ? 'disabled' : ''}>+</button>
             </div>
         </div>`;
     }).join('');
     $('#fnvrpg-special-list').html(html);
 
+    $('#fnvrpg-special-unlimited').off('change.spec').on('change.spec', function () {
+        cur().specialUnlimited = $(this).is(':checked');
+        saveChatData();
+        renderSpecialTab();
+    });
+
     $('#fnvrpg-special-list').off('click', '.fnvrpg-spc-btn').on('click', '.fnvrpg-spc-btn', function () {
+        if ($(this).is(':disabled')) return;
         const key = $(this).data('key');
         const dir = Number($(this).data('dir'));
-        const nxt = Math.max(1, Math.min(10, cur().special[key] + dir));
-        if (nxt === cur().special[key]) return;
-        cur().special[key] = nxt;
-        syncDerived(cur());
+        const c2  = cur();
+        if (dir > 0 && !c2.specialUnlimited && specialPtsLeft(c2) <= 0) {
+            showToast('No distribution points left. Enable Unlimited or reduce another stat.', 'warning');
+            return;
+        }
+        const nxt = Math.max(1, Math.min(10, c2.special[key] + dir));
+        if (nxt === c2.special[key]) return;
+        c2.special[key] = nxt;
+        syncDerived(c2);
         saveChatData();
         renderSpecialTab();
         renderStatusTab();
@@ -1147,12 +1168,17 @@ function renderPerkCatalog(filter) {
         const arrow = isOpen ? '▼' : '▶';
         let itemsHtml = '';
         for (const p of perks) {
-            const taken = c.perks.includes(p.name);
-            const reqs  = checkPerkReqs(p, c);
-            const reqCls = !taken && !reqs.ok ? 'reqs-unmet' : '';
+            const maxStack  = STACKABLE_PERKS[p.name] || 1;
+            const curStack  = c.perks.filter((/** @type {string} */ x) => x === p.name).length;
+            const taken     = curStack >= maxStack;
+            const reqs      = checkPerkReqs(p, c);
+            const reqCls    = !taken && !reqs.ok ? 'reqs-unmet' : '';
+            const stackBadge = maxStack > 1
+                ? `<span class="fnvrpg-stack-badge ${taken ? 'stack-full' : ''}">${curStack}/${maxStack}</span>`
+                : '';
             itemsHtml += `<div class="fnvrpg-perk-catalog-item ${taken ? 'already-taken' : ''} ${reqCls}" data-perk="${escHtml(p.name)}">
                 <div class="fnvrpg-perk-catalog-info">
-                    <div class="fnvrpg-perk-catalog-name">${escHtml(p.name)}
+                    <div class="fnvrpg-perk-catalog-name">${escHtml(p.name)}${stackBadge}
                         <span style="font-size:10px;font-weight:normal;color:var(--fnv-text-muted);margin-left:5px;">Lv.${p.minLv}</span>
                     </div>
                     <div class="fnvrpg-perk-catalog-desc">${escHtml(p.desc)}</div>
@@ -1197,7 +1223,9 @@ function renderPerkCatalog(filter) {
 function addPerk(name, customDesc = '') {
     const c = cur();
     if (!name) return;
-    if (c.perks.includes(name)) { showToast('Already have this perk.', 'info'); return; }
+    const maxStack = STACKABLE_PERKS[name] || 1;
+    const curStack = c.perks.filter((/** @type {string} */ p) => p === name).length;
+    if (curStack >= maxStack) { showToast(maxStack > 1 ? `Maximum ${maxStack}× reached.` : 'Already have this perk.', 'info'); return; }
 
     const catalogEntry = PERK_CATALOG.find(p => p.name === name);
     if (catalogEntry) {
@@ -1274,6 +1302,65 @@ function renderReputationTab() {
     });
 }
 
+// ── Character profiles ────────────────────────────────────────────────────────
+
+/** @param {string} profileName */
+function saveCharProfile(profileName) {
+    const char = cur();
+    if (!settings.savedProfiles) settings.savedProfiles = [];
+    const profile = {
+        id: Date.now().toString(),
+        name: profileName || char.name || 'Unnamed',
+        charName: char.name,
+        level: char.level,
+        karma: char.karma,
+        timestamp: Date.now(),
+        data: JSON.parse(JSON.stringify(char)),
+    };
+    settings.savedProfiles.push(profile);
+    saveSettings();
+    renderSavedProfiles();
+    showToast(`Profile "${profile.name}" saved.`, 'success');
+}
+
+/** @param {string} id */
+function deleteCharProfile(id) {
+    settings.savedProfiles = (settings.savedProfiles || []).filter(p => p.id !== id);
+    saveSettings();
+    renderSavedProfiles();
+}
+
+function renderSavedProfiles() {
+    const profiles = settings.savedProfiles || [];
+    if (profiles.length === 0) {
+        $('#fnvrpg-profiles-list').html('');
+        $('#fnvrpg-profiles-empty').show();
+        return;
+    }
+    $('#fnvrpg-profiles-empty').hide();
+    const html = profiles.map(p => {
+        const date = new Date(p.timestamp).toLocaleDateString();
+        return `<div class="fnvrpg-profile-item" data-id="${escHtml(p.id)}">
+            <div class="fnvrpg-profile-info">
+                <div class="fnvrpg-profile-name">${escHtml(p.name)}</div>
+                <div class="fnvrpg-profile-sub">${escHtml(p.charName || '—')} · Lv.${p.level} · ${escHtml(p.karma)} · ${date}</div>
+            </div>
+            <div class="fnvrpg-profile-btns">
+                <button class="fnvrpg-btn fnvrpg-btn-ghost fnvrpg-profile-load" data-id="${escHtml(p.id)}" title="Load into active character slot">
+                    <i class="fa-solid fa-rotate-left"></i>
+                </button>
+                <button class="fnvrpg-btn fnvrpg-btn-ghost fnvrpg-profile-export-json" data-id="${escHtml(p.id)}" title="Export as JSON file">
+                    <i class="fa-solid fa-download"></i>
+                </button>
+                <button class="fnvrpg-btn fnvrpg-btn-danger fnvrpg-profile-del" data-id="${escHtml(p.id)}" title="Delete profile">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </div>`;
+    }).join('');
+    $('#fnvrpg-profiles-list').html(html);
+}
+
 // ── Render: Config ────────────────────────────────────────────────────────────
 
 function renderConfigTab() {
@@ -1284,6 +1371,7 @@ function renderConfigTab() {
     $('#fnvrpg-notes').val(cur().notes || '');
     $('.fnvrpg-xp-rate-btn').removeClass('active');
     $(`.fnvrpg-xp-rate-btn[data-rate="${settings.xpRate || 'medium'}"]`).addClass('active');
+    renderSavedProfiles();
 }
 
 // ── Full UI refresh ───────────────────────────────────────────────────────────
@@ -1543,6 +1631,102 @@ function initConfigEvents() {
         chatData[activeChar] = createDefaultChar(activeChar === 'user' ? 'The Courier' : '');
         saveChatData(); refreshUI();
         showToast('Character reset.', 'info');
+    });
+
+    // Profile save
+    $('#fnvrpg-profile-save').on('click', () => {
+        const name = String($('#fnvrpg-profile-name').val() ?? '').trim();
+        if (!name) { showToast('Enter a profile name first.', 'warning'); return; }
+        saveCharProfile(name);
+        $('#fnvrpg-profile-name').val('');
+    });
+    $('#fnvrpg-profile-name').on('keydown', (e) => { if (e.key === 'Enter') $('#fnvrpg-profile-save').trigger('click'); });
+
+    // Profile load / delete (delegated — list is re-rendered dynamically)
+    $(document).on('click', '.fnvrpg-profile-load', function () {
+        const id = String($(this).data('id'));
+        const profile = (settings.savedProfiles || []).find(p => p.id === id);
+        if (!profile) return;
+        const isUser = activeChar === 'user';
+        const merged = deepMergeChar(profile.data, createDefaultChar(isUser ? 'The Courier' : ''));
+        if (isUser) chatData.user = merged; else chatData.char = merged;
+        syncDerived(isUser ? chatData.user : chatData.char);
+        saveChatData(); refreshUI();
+        showToast(`Profile "${profile.name}" loaded into ${isUser ? 'player' : 'character'} slot.`, 'success');
+    });
+
+    $(document).on('click', '.fnvrpg-profile-del', function () {
+        const id = String($(this).data('id'));
+        const profile = (settings.savedProfiles || []).find(p => p.id === id);
+        if (!profile) return;
+        if (!confirm(`Delete profile "${profile.name}"?`)) return;
+        deleteCharProfile(id);
+    });
+
+    // Export single profile as JSON file
+    $(document).on('click', '.fnvrpg-profile-export-json', function () {
+        const id = String($(this).data('id'));
+        const profile = (settings.savedProfiles || []).find(p => p.id === id);
+        if (!profile) return;
+        const payload = { _fnvProfile: true, name: profile.name, data: profile.data };
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+        const safeName = profile.name.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase();
+        const a = Object.assign(document.createElement('a'), {
+            href: URL.createObjectURL(blob),
+            download: `fnv_char_${safeName}.json`,
+        });
+        a.click(); URL.revokeObjectURL(a.href);
+    });
+
+    // Import JSON file as a new saved profile
+    $('#fnvrpg-profile-import-json').on('click', () => {
+        const input = Object.assign(document.createElement('input'), { type: 'file', accept: '.json' });
+        input.onchange = (e) => {
+            const file = /** @type {HTMLInputElement} */ (e.target).files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                try {
+                    const raw = JSON.parse(/** @type {string} */ (ev.target?.result));
+                    let charData = null;
+
+                    if (raw._fnvProfile && raw.data) {
+                        // Exported from profile export button
+                        charData = raw.data;
+                    } else if (raw.user || raw.char) {
+                        // Full chatData export — prefer user slot
+                        charData = raw.user || raw.char;
+                    } else if (raw.special && raw.name !== undefined) {
+                        // Bare char object
+                        charData = raw;
+                    }
+
+                    if (!charData) { showToast('Unrecognized file format.', 'error'); return; }
+
+                    const merged = deepMergeChar(charData, createDefaultChar(''));
+                    const defaultName = raw.name || merged.name || file.name.replace(/\.json$/i, '');
+                    const profileName = prompt('Profile name:', defaultName);
+                    if (profileName === null) return;
+
+                    if (!settings.savedProfiles) settings.savedProfiles = [];
+                    const profile = {
+                        id: Date.now().toString(),
+                        name: profileName.trim() || defaultName,
+                        charName: merged.name,
+                        level: merged.level,
+                        karma: merged.karma,
+                        timestamp: Date.now(),
+                        data: merged,
+                    };
+                    settings.savedProfiles.push(profile);
+                    saveSettings();
+                    renderSavedProfiles();
+                    showToast(`Profile "${profile.name}" imported.`, 'success');
+                } catch (_) { showToast('Failed to parse file.', 'error'); }
+            };
+            reader.readAsText(file);
+        };
+        input.click();
     });
 }
 

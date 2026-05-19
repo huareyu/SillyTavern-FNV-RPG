@@ -179,6 +179,16 @@
 
             <!-- ═══ S.P.E.C.I.A.L. ═══ -->
             <div id="fnvrpg-tab-special" class="fnvrpg-tab-content">
+                <div class="fnvrpg-special-pts-bar">
+                    <div class="fnvrpg-special-pts-info">
+                        <span class="fnvrpg-lbl">Distribution Points</span>
+                        <span id="fnvrpg-special-pts-num" class="fnvrpg-special-pts-num">5 remaining</span>
+                    </div>
+                    <label class="fnvrpg-checkbox-row" style="margin:0; white-space:nowrap;">
+                        <input type="checkbox" id="fnvrpg-special-unlimited">
+                        <span>Unlimited</span>
+                    </label>
+                </div>
                 <p class="fnvrpg-tab-note">Values 1–10. HP and AP recalculate automatically.</p>
                 <div id="fnvrpg-special-list"></div>
                 <div class="fnvrpg-stat-block" style="margin-top:8px;">
@@ -364,6 +374,25 @@
                             <i class="fa-solid fa-rotate-left"></i> Reset Character
                         </button>
                     </div>
+                </div>
+
+                <div class="fnvrpg-field-group">
+                    <div class="fnvrpg-section-label">Saved Characters</div>
+                    <p class="fnvrpg-tab-note" style="margin-top:0;">
+                        Save the active character as a named profile. Profiles persist across all chats.
+                    </p>
+                    <div class="fnvrpg-field-row">
+                        <input type="text" id="fnvrpg-profile-name" class="fnvrpg-input fnvrpg-input-grow"
+                               placeholder="Profile name (e.g. My Courier)..." maxlength="40">
+                        <button class="fnvrpg-btn fnvrpg-btn-add" id="fnvrpg-profile-save" title="Save active character as profile">
+                            <i class="fa-solid fa-floppy-disk"></i> Save
+                        </button>
+                        <button class="fnvrpg-btn fnvrpg-btn-ghost" id="fnvrpg-profile-import-json" title="Import profile from JSON file">
+                            <i class="fa-solid fa-file-import"></i>
+                        </button>
+                    </div>
+                    <div id="fnvrpg-profiles-list" class="fnvrpg-profiles-list"></div>
+                    <div id="fnvrpg-profiles-empty" class="fnvrpg-empty-hint">No saved characters yet.</div>
                 </div>
 
             </div><!-- /config -->
