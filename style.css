@@ -1304,6 +1304,143 @@
     border-color: var(--fnv-border);
 }
 
+/* ── Conditions ── */
+.fnvrpg-cond-type-badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+.cond-chem       { background: rgba(68,136,204,0.2); color: #6ab0f5; border: 1px solid #3366aa; }
+.cond-withdrawal { background: rgba(204,68,68,0.2);  color: #f07070; border: 1px solid #aa3333; }
+.cond-wound      { background: rgba(204,100,0,0.2);  color: #f0a050; border: 1px solid #aa5500; }
+.cond-radiation  { background: rgba(80,180,80,0.2);  color: #80d880; border: 1px solid #336633; }
+.cond-other      { background: rgba(130,100,180,0.2);color: #b090e0; border: 1px solid #664499; }
+
+.fnvrpg-cond-list { display: flex; flex-direction: column; gap: 5px; }
+
+.fnvrpg-cond-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+    background: var(--fnv-surface2);
+    border: 1px solid var(--fnv-border-soft);
+    border-radius: 5px;
+    padding: 7px 8px;
+}
+.fnvrpg-cond-item.sev-3 { border-color: rgba(204,68,68,0.4); }
+.fnvrpg-cond-item.sev-2 { border-color: rgba(204,100,0,0.3); }
+
+.fnvrpg-cond-item-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+}
+.fnvrpg-cond-item-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fnvrpg-cond-item-name { font-size: 12px; font-weight: 600; color: var(--fnv-text); }
+.fnvrpg-cond-item-effects { font-size: 10px; color: var(--fnv-accent); font-weight: 500; }
+.fnvrpg-cond-item-cure { font-size: 10px; color: var(--fnv-text-muted); }
+
+.fnvrpg-cond-del {
+    background: none;
+    border: none;
+    color: var(--fnv-text-muted);
+    cursor: pointer;
+    font-size: 12px;
+    padding: 1px 4px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.fnvrpg-cond-del:hover { color: var(--fnv-danger); }
+
+.fnvrpg-cond-cat-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--fnv-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 4px 3px;
+    border-bottom: 1px solid var(--fnv-border-soft);
+    margin-bottom: 3px;
+}
+
+.fnvrpg-cond-catalog-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 4px;
+    border-bottom: 1px solid var(--fnv-border-soft);
+}
+.fnvrpg-cond-catalog-item:last-child { border-bottom: none; }
+.fnvrpg-cond-catalog-item.already-active { opacity: 0.5; }
+
+.fnvrpg-cond-catalog-info { flex: 1; min-width: 0; }
+.fnvrpg-cond-catalog-name { font-size: 12px; font-weight: 600; color: var(--fnv-text); margin-bottom: 2px; }
+.fnvrpg-cond-catalog-effects { font-size: 10px; color: var(--fnv-accent); }
+.fnvrpg-cond-catalog-cure { font-size: 10px; color: var(--fnv-text-muted); margin-top: 1px; }
+
+.fnvrpg-cond-active-mark {
+    font-size: 10px;
+    color: #7ddd7d;
+    font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.fnvrpg-cond-add-btn { padding: 2px 8px !important; font-size: 14px !important; flex-shrink: 0; }
+
+.fnvrpg-cond-spec-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin: 4px 0;
+}
+.fnvrpg-cond-spec-cell { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.fnvrpg-cond-spec-abbr { font-size: 9px; font-weight: 700; color: var(--fnv-text-muted); text-transform: uppercase; }
+.fnvrpg-cond-spec-input {
+    width: 100%;
+    background: var(--fnv-surface2);
+    border: 1px solid var(--fnv-border);
+    border-radius: 3px;
+    color: var(--fnv-text);
+    font-size: 11px;
+    text-align: center;
+    padding: 2px 0;
+    outline: none;
+}
+.fnvrpg-cond-spec-input:focus { border-color: var(--fnv-accent-dim); }
+.fnvrpg-cond-spec-input::-webkit-inner-spin-button,
+.fnvrpg-cond-spec-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+.fnvrpg-cond-eff-grid {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+.fnvrpg-eff-cell { display: flex; flex-direction: column; align-items: center; gap: 1px; min-width: 32px; }
+.fnvrpg-eff-val { font-size: 13px; font-weight: 700; color: var(--fnv-text); line-height: 1; }
+.fnvrpg-eff-delta { font-size: 9px; font-weight: 700; }
+.fnvrpg-eff-delta.eff-neg { color: #f07070; }
+.fnvrpg-eff-delta.eff-pos { color: #7ddd7d; }
+
+.fnvrpg-msg-cond-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: #f07070;
+    margin-left: 4px;
+}
+
 /* ── Saved character profiles ── */
 .fnvrpg-profiles-list {
     display: flex;

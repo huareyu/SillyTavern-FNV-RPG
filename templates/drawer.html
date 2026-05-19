@@ -64,6 +64,10 @@
                 <span id="fnvrpg-perk-badge" class="fnvrpg-perk-dot" style="display:none;"></span>
             </button>
             <button class="fnvrpg-tab" data-tab="reputation">Rep</button>
+            <button class="fnvrpg-tab fnvrpg-tab-conditions" data-tab="conditions" style="display:none;">
+                <i class="fa-solid fa-heart-crack"></i>
+                <span id="fnvrpg-cond-badge" class="fnvrpg-perk-dot" style="display:none;"></span>
+            </button>
             <button class="fnvrpg-tab" data-tab="config">
                 <i class="fa-solid fa-gear"></i>
             </button>
@@ -306,6 +310,62 @@
                 </div>
             </div>
 
+            <!-- ═══ CONDITIONS ═══ -->
+            <div id="fnvrpg-tab-conditions" class="fnvrpg-tab-content">
+
+                <!-- Effective SPECIAL summary (shown only when conditions modify stats) -->
+                <div id="fnvrpg-cond-eff-section" class="fnvrpg-stat-block" style="display:none; margin-bottom:8px;">
+                    <div class="fnvrpg-section-label">Effective S.P.E.C.I.A.L. <span class="fnvrpg-tab-note" style="font-size:10px;">(base + conditions)</span></div>
+                    <div id="fnvrpg-cond-eff-block" class="fnvrpg-cond-eff-grid"></div>
+                </div>
+
+                <!-- Active conditions list -->
+                <div class="fnvrpg-section-label" style="margin-bottom:5px;">Active Conditions</div>
+                <div id="fnvrpg-cond-list" class="fnvrpg-cond-list"></div>
+                <div id="fnvrpg-cond-empty" class="fnvrpg-empty-hint">No active conditions — looking good, Courier.</div>
+
+                <!-- Catalog browser -->
+                <div style="margin-top:10px;">
+                    <button class="fnvrpg-btn fnvrpg-btn-outline" id="fnvrpg-cond-catalog-toggle" style="width:100%;">
+                        <i class="fa-solid fa-book-open"></i> Browse Condition Catalog
+                    </button>
+                </div>
+                <div id="fnvrpg-cond-catalog-wrap" style="display:none; margin-top:8px;">
+                    <div id="fnvrpg-cond-catalog"></div>
+                </div>
+
+                <!-- Custom condition -->
+                <div class="fnvrpg-field-group" style="margin-top:10px;">
+                    <div class="fnvrpg-section-label">Add Custom</div>
+                    <div class="fnvrpg-field-row">
+                        <input type="text" id="fnvrpg-cond-custom-name" class="fnvrpg-input fnvrpg-input-grow" placeholder="Condition name...">
+                        <select id="fnvrpg-cond-custom-type" class="fnvrpg-select">
+                            <option value="chem">Chem</option>
+                            <option value="withdrawal">Withdrawal</option>
+                            <option value="wound" selected>Wound</option>
+                            <option value="radiation">Radiation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <p class="fnvrpg-tab-note" style="margin:4px 0;">SPECIAL modifiers (0 = no change):</p>
+                    <div class="fnvrpg-cond-spec-grid">
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">STR</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="str" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">PER</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="per" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">END</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="end" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">CHR</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="chr" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">INT</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="int" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">AGI</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="agi" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">LUK</div><input type="number" class="fnvrpg-cond-spec-input" data-stat="luk" value="0" min="-10" max="10"></div>
+                        <div class="fnvrpg-cond-spec-cell"><div class="fnvrpg-cond-spec-abbr">DT</div><input type="number" id="fnvrpg-cond-custom-dt" class="fnvrpg-cond-spec-input" value="0" min="-99" max="99"></div>
+                    </div>
+                    <div class="fnvrpg-field-row" style="margin-top:5px;">
+                        <input type="text" id="fnvrpg-cond-custom-cure" class="fnvrpg-input fnvrpg-input-grow" placeholder="How to cure (optional)...">
+                        <button class="fnvrpg-btn fnvrpg-btn-add" id="fnvrpg-cond-custom-add">Add</button>
+                    </div>
+                </div>
+
+            </div><!-- /conditions -->
+
             <!-- ═══ CONFIG ═══ -->
             <div id="fnvrpg-tab-config" class="fnvrpg-tab-content">
 
@@ -322,6 +382,10 @@
                     <label class="fnvrpg-checkbox-row">
                         <input type="checkbox" id="fnvrpg-cfg-perk-descs">
                         <span>Include perk descriptions in AI context</span>
+                    </label>
+                    <label class="fnvrpg-checkbox-row">
+                        <input type="checkbox" id="fnvrpg-cfg-conditions">
+                        <span>Enable Conditions module (status effects tab)</span>
                     </label>
                 </div>
 

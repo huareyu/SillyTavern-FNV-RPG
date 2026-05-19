@@ -115,6 +115,90 @@ const PERK_EFFECTS = {
                                   energyWeapons: -5, explosives: -5, guns: -5, meleeWeapons: -5, unarmed: -5 } },
 };
 
+// ── Condition Catalog ─────────────────────────────────────────────────────────
+const CONDITION_CATALOG = [
+    // Chem effects
+    { id: 'chem-buffout',   name: 'Buffout',                      type: 'chem',       severity: 1,
+      effects: { str: 2, end: 2 },            dtMod: 0,  desc: 'Increased strength and endurance.',
+      cure: 'Wears off over time. Risk of addiction.' },
+    { id: 'chem-jet',       name: 'Jet',                          type: 'chem',       severity: 1,
+      effects: { agi: 2 },                    dtMod: 0,  desc: '+2 AGI, +30 AP. Time slows, reflexes sharpen.',
+      cure: 'Wears off. High addiction risk.' },
+    { id: 'chem-mentats',   name: 'Mentats',                      type: 'chem',       severity: 1,
+      effects: { int: 2, per: 2 },            dtMod: 0,  desc: 'Enhanced cognition, sharper awareness.',
+      cure: 'Wears off. Moderate addiction risk.' },
+    { id: 'chem-alcohol',   name: 'Alcohol',                      type: 'chem',       severity: 1,
+      effects: { str: 1, chr: 1, int: -1, per: -1 }, dtMod: 0, desc: 'Liquid courage. Confidence up, judgment down.',
+      cure: 'Sleep it off.' },
+    { id: 'chem-medx',      name: 'Med-X',                        type: 'chem',       severity: 1,
+      effects: {},                            dtMod: 25, desc: '+25 DT. Heavy painkiller, severe addiction risk.',
+      cure: 'Wears off over time.' },
+    // Withdrawal
+    { id: 'wd-buffout',     name: 'Buffout Withdrawal',           type: 'withdrawal', severity: 2,
+      effects: { str: -1, end: -1, agi: -1 }, dtMod: 0, desc: 'Body aches, muscle weakness. Everything feels heavier.',
+      cure: 'Take Buffout again, or see a doctor.' },
+    { id: 'wd-jet',         name: 'Jet Withdrawal',               type: 'withdrawal', severity: 2,
+      effects: { agi: -2, per: -1 },          dtMod: 0, desc: 'Crushing fatigue, tunnel vision. Time drags painfully.',
+      cure: 'Take Jet again, or see a doctor.' },
+    { id: 'wd-mentats',     name: 'Mentats Withdrawal',           type: 'withdrawal', severity: 2,
+      effects: { int: -2, per: -1, chr: -1 }, dtMod: 0, desc: 'Mental fog, irritability, difficulty focusing.',
+      cure: 'Take Mentats again, or see a doctor.' },
+    { id: 'wd-alcohol',     name: 'Alcohol Withdrawal',           type: 'withdrawal', severity: 2,
+      effects: { str: -1, chr: -1 },          dtMod: 0, desc: 'Shaking hands, nausea, cold sweats.',
+      cure: 'Drink again, or wait it out.' },
+    { id: 'wd-medx',        name: 'Med-X Withdrawal',             type: 'withdrawal', severity: 2,
+      effects: { str: -1, end: -1, per: -1 }, dtMod: 0, desc: 'Everything hurts. Every. Single. Thing.',
+      cure: 'Take Med-X again, or see a doctor.' },
+    // Wounds
+    { id: 'wound-arm',      name: 'Broken Arm',                   type: 'wound',      severity: 2,
+      effects: { str: -2, agi: -1 },          dtMod: 0, desc: 'Fractured bone. Two-handed weapons nearly impossible.',
+      cure: 'Doctor, Stimpak, or rest.' },
+    { id: 'wound-leg',      name: 'Broken Leg',                   type: 'wound',      severity: 2,
+      effects: { agi: -3 },                   dtMod: 0, desc: 'Shattered bone. Movement severely impaired.',
+      cure: 'Doctor, Stimpak, or rest.' },
+    { id: 'wound-eye',      name: 'Eye Damage',                   type: 'wound',      severity: 2,
+      effects: { per: -4 },                   dtMod: 0, desc: 'Blurred or lost vision. Ranged accuracy suffers badly.',
+      cure: 'Doctor or rest.' },
+    { id: 'wound-concuss',  name: 'Concussion',                   type: 'wound',      severity: 2,
+      effects: { int: -2, per: -2, chr: -1 }, dtMod: 0, desc: 'Disorientation, memory gaps, sensitivity to light.',
+      cure: 'Rest or doctor.' },
+    { id: 'wound-bleed',    name: 'Bleeding',                     type: 'wound',      severity: 3,
+      effects: { end: -1 },                   dtMod: 0, desc: 'Active blood loss. Loses HP each round if untreated.',
+      cure: 'Stimpak, bandage, or doctor.' },
+    { id: 'wound-gut',      name: 'Gut Shot',                     type: 'wound',      severity: 3,
+      effects: { end: -2, str: -1 },          dtMod: 0, desc: 'Severe abdominal trauma. Every movement is agony.',
+      cure: 'Doctor required immediately.' },
+    // Radiation
+    { id: 'rad-minor',      name: 'Minor Radiation Sickness',     type: 'radiation',  severity: 1,
+      effects: { end: -1 },                   dtMod: 0, desc: '100–199 RAD. Slight nausea and fatigue.',
+      cure: 'RadAway.' },
+    { id: 'rad-advanced',   name: 'Advanced Radiation Sickness',  type: 'radiation',  severity: 2,
+      effects: { end: -2, str: -1 },          dtMod: 0, desc: '200–399 RAD. Hair loss, vomiting, progressive weakness.',
+      cure: 'RadAway. Multiple doses may be needed.' },
+    { id: 'rad-critical',   name: 'Critical Radiation Sickness',  type: 'radiation',  severity: 2,
+      effects: { end: -3, str: -2, agi: -2 }, dtMod: 0, desc: '400–599 RAD. Severe tissue damage, impaired motor control.',
+      cure: 'RadAway immediately. Doctor recommended.' },
+    { id: 'rad-deadly',     name: 'Deadly Radiation Sickness',    type: 'radiation',  severity: 3,
+      effects: { end: -3, str: -3, agi: -3, int: -3 }, dtMod: 0, desc: '600–799 RAD. Organ failure. You\'re dying.',
+      cure: 'Multiple RadAway doses and a doctor — fast.' },
+    { id: 'rad-fatal',      name: 'Fatal Radiation Sickness',     type: 'radiation',  severity: 3,
+      effects: { end: -5, str: -5, agi: -5, int: -5, per: -5 }, dtMod: 0, desc: '800+ RAD. Every system failing. Time is very short.',
+      cure: 'Doctor and RadAway immediately. Survival unlikely.' },
+    // Other
+    { id: 'other-poison',   name: 'Poisoned',                     type: 'other',      severity: 2,
+      effects: { end: -1, str: -1 },          dtMod: 0, desc: 'Venom from a creature bite. Progressive weakness.',
+      cure: 'Antivenom, doctor, or wait it out.' },
+    { id: 'other-sleep',    name: 'Sleep Deprived',               type: 'other',      severity: 1,
+      effects: { int: -2, per: -2, chr: -1 }, dtMod: 0, desc: 'Can\'t focus, reaction time is off. Everything feels hazy.',
+      cure: 'Sleep or rest.' },
+    { id: 'other-starving', name: 'Starving',                     type: 'other',      severity: 2,
+      effects: { str: -2, end: -1, agi: -1 }, dtMod: 0, desc: 'No food in days. Strength fading fast.',
+      cure: 'Eat food.' },
+    { id: 'other-thirst',   name: 'Dehydrated',                   type: 'other',      severity: 2,
+      effects: { end: -2, chr: -1, int: -1 }, dtMod: 0, desc: 'Cracked lips, confusion, muscle cramps.',
+      cure: 'Drink clean water.' },
+];
+
 // ── Formulas ──────────────────────────────────────────────────────────────────
 
 const xpToNextLevel = (lv) => lv * 200;
@@ -175,6 +259,7 @@ function createDefaultChar(name = '') {
         skillPoints: 0,
         perkDescs: {},
         specialUnlimited: false,
+        conditions: /** @type {any[]} */ ([]),
     };
 }
 
@@ -189,10 +274,11 @@ function createDefaultChatData() {
 
 // ── Global state ──────────────────────────────────────────────────────────────
 
-/** @type {{enabled:boolean,injectContext:boolean,injectionPosition:number,xpRate:string,injectPerkDescs:boolean,savedProfiles:any[]}} */
-const DEFAULT_SETTINGS = { enabled: true, injectContext: true, injectionPosition: 1, xpRate: 'medium', injectPerkDescs: false, savedProfiles: [] };
+/** @type {{enabled:boolean,injectContext:boolean,injectionPosition:number,xpRate:string,injectPerkDescs:boolean,conditionsEnabled:boolean,savedProfiles:any[]}} */
+const DEFAULT_SETTINGS = { enabled: true, injectContext: true, injectionPosition: 1, xpRate: 'medium', injectPerkDescs: false, conditionsEnabled: false, savedProfiles: [] };
 
 let settings  = { ...DEFAULT_SETTINGS };
+/** @type {any} */
 let chatData  = createDefaultChatData();
 let activeChar = 'user';   // 'user' | 'char' — which card is being edited
 let catalogOpen = false;
@@ -259,6 +345,7 @@ function deepMergeChar(saved, defaults) {
     result.skillPoints     = saved.skillPoints ?? 0;
     result.perkDescs       = { ...(saved.perkDescs || {}) };
     result.specialUnlimited = saved.specialUnlimited ?? false;
+    result.conditions       = Array.isArray(saved.conditions) ? saved.conditions.map((/** @type {any} */ c) => ({ ...c, effects: { ...(c.effects || {}) } })) : [];
     return result;
 }
 
@@ -296,8 +383,9 @@ function saveChatData() {
 
 function syncDerived(char) {
     const bonuses = getPerkBonuses(char);
-    const newMaxHP = calcMaxHP(char.special, char.level) + bonuses.maxHp;
-    const newMaxAP = calcMaxAP(char.special);
+    const eff = getEffectiveSPECIAL(char);
+    const newMaxHP = calcMaxHP(eff, char.level) + bonuses.maxHp;
+    const newMaxAP = calcMaxAP(eff);
     if (char.hp.max !== newMaxHP) {
         char.hp.current = Math.min(newMaxHP, Math.max(1, Math.round(char.hp.current * newMaxHP / (char.hp.max || 1))));
         char.hp.max = newMaxHP;
@@ -311,6 +399,22 @@ function syncDerived(char) {
 // Helper
 const cur = () => chatData[activeChar];
 
+/** @param {any} char */
+function getEffectiveSPECIAL(char) {
+    const eff = { ...char.special };
+    for (const cond of (char.conditions || [])) {
+        for (const [key, val] of Object.entries(cond.effects || {})) {
+            if (key in eff) eff[key] = Math.max(1, eff[key] + Number(val));
+        }
+    }
+    return eff;
+}
+
+/** @param {any} char */
+function getConditionDT(char) {
+    return (char.conditions || []).reduce((/** @type {number} */ sum, /** @type {any} */ c) => sum + (c.dtMod || 0), 0);
+}
+
 const SPECIAL_POOL = 40;
 /** @param {{special: Record<string,number>, specialUnlimited?: boolean}} char */
 const specialSpent = (char) => Object.values(char.special).reduce((s, v) => s + v, 0);
@@ -321,12 +425,14 @@ const specialPtsLeft = (char) => SPECIAL_POOL - specialSpent(char);
 
 function buildCharPrompt(role, char) {
     const sp      = char.special;
+    const eff     = getEffectiveSPECIAL(char);
     const xpGap   = xpToNextLevel(char.level);
     const xpProg  = char.xp - totalXpForLevel(char.level);
     const xpP     = xpGap > 0 ? Math.round(xpProg / xpGap * 100) : 100;
     const hpP     = char.hp.max > 0 ? Math.round(char.hp.current / char.hp.max * 100) : 0;
     const bonuses = getPerkBonuses(char);
-    const effectiveDT = char.dt + bonuses.dt;
+    const effectiveDT = char.dt + bonuses.dt + getConditionDT(char);
+    const hasCondMods = SPECIAL_DEFS.some(d => eff[d.key] !== sp[d.key]);
 
     const lines = [];
     lines.push(`=== ${role.toUpperCase()}: ${char.name.toUpperCase() || '(unnamed)'} ===`);
@@ -337,6 +443,7 @@ function buildCharPrompt(role, char) {
     lines.push('');
     lines.push('── S.P.E.C.I.A.L. ──');
     lines.push(SPECIAL_DEFS.map(d => `${d.abbr} ${sp[d.key]}`).join('  |  '));
+    if (hasCondMods) lines.push('Effective: ' + SPECIAL_DEFS.map(d => `${d.abbr} ${eff[d.key]}`).join('  |  '));
     lines.push('');
     lines.push('── SKILLS ──');
     const skillStrs = SKILL_DEFS.map(d => {
@@ -364,6 +471,19 @@ function buildCharPrompt(role, char) {
         lines.push('');
         lines.push('── REPUTATION ──');
         lines.push(repEntries.map(([k, v]) => `${k}: ${v}`).join('  |  '));
+    }
+    const activeConds = char.conditions || [];
+    if (activeConds.length > 0) {
+        lines.push('');
+        lines.push('── CONDITIONS ──');
+        for (const cond of activeConds) {
+            const effParts = Object.entries(cond.effects || {}).filter(([, v]) => Number(v) !== 0)
+                .map(([k, v]) => `${k.toUpperCase()} ${Number(v) > 0 ? '+' : ''}${v}`);
+            if (cond.dtMod) effParts.push(`DT ${cond.dtMod > 0 ? '+' : ''}${cond.dtMod}`);
+            const effStr = effParts.length ? ': ' + effParts.join(', ') : '';
+            const cureStr = cond.cure ? ` | Cure: ${cond.cure}` : '';
+            lines.push(`[${String(cond.type).toUpperCase()}] ${cond.name}${effStr}${cureStr}`);
+        }
     }
     if (char.notes?.trim()) {
         lines.push('');
@@ -402,10 +522,23 @@ function buildPrompt() {
             : settings.xpRate === 'high'
             ? ['XP rule: Be generous — 75 to 250 XP per response. Reward most interactions, exploration, and roleplay moments.']
             : ['XP rule: Be moderate — 25 to 100 XP per response for any notable action, combat encounter, or story advancement.']),
+        ...(settings.conditionsEnabled ? [
+            '',
+            '── CONDITIONS TRACKING ──',
+            'Track conditions as they naturally arise or resolve. Use cond.add and cond.remove inside the same <fnvstat> block. Use underscores for spaces in names.',
+            '  cond.add:Condition_Name    cond.remove:Condition_Name',
+            'CHEMS (wear off after ~1 scene unless extended): ' + CONDITION_CATALOG.filter(c => c.type === 'chem').map(c => c.name.replace(/ /g, '_')).join(', '),
+            'WITHDRAWAL (when addicted character stops using): ' + CONDITION_CATALOG.filter(c => c.type === 'withdrawal').map(c => c.name.replace(/ /g, '_')).join(', '),
+            'WOUNDS (persist until healed — Stimpak / doctor / rest): ' + CONDITION_CATALOG.filter(c => c.type === 'wound').map(c => c.name.replace(/ /g, '_')).join(', '),
+            'RADIATION (persist until RadAway; escalate with more exposure): ' + CONDITION_CATALOG.filter(c => c.type === 'radiation').map(c => c.name.replace(/ /g, '_')).join(', '),
+            'OTHER: ' + CONDITION_CATALOG.filter(c => c.type === 'other').map(c => c.name.replace(/ /g, '_')).join(', '),
+            'Rules: add chem when used, remove when scene ends. Add wound matching injury (shot in arm → Broken_Arm); remove when treated. Upgrade radiation on further exposure; downgrade/remove after RadAway. Add withdrawal when addicted character runs out of chem.',
+        ] : []),
         'Example of a fight where the player took damage, earned XP, and spent caps:',
         '<fnvstat>',
-        'player: hp:-20 xp:+75 caps:-50 rep.NCR:Liked',
-        'char: hp:-10',
+        ...(settings.conditionsEnabled
+            ? ['player: hp:-20 xp:+75 caps:-50 rep.NCR:Liked cond.add:Bleeding', 'char: hp:-10']
+            : ['player: hp:-20 xp:+75 caps:-50 rep.NCR:Liked', 'char: hp:-10']),
         '</fnvstat>',
         '</fnvrpg>',
     ].join('\n');
@@ -538,6 +671,32 @@ function applyStatUpdates(charKey, updates) {
     return changed;
 }
 
+/** @param {string} charKey @param {'add'|'remove'} action @param {string} rawVal */
+function applyConditionUpdate(charKey, action, rawVal) {
+    const char = chatData[charKey];
+    if (!char) return false;
+    const condName = rawVal.replace(/_/g, ' ');
+    if (!char.conditions) char.conditions = [];
+    if (action === 'add') {
+        if (char.conditions.some((/** @type {any} */ ac) => ac.name.toLowerCase() === condName.toLowerCase())) return false;
+        const def = CONDITION_CATALOG.find(cd => cd.name.toLowerCase() === condName.toLowerCase());
+        if (def) {
+            char.conditions.push({ id: def.id, name: def.name, type: def.type, severity: def.severity,
+                effects: { ...def.effects }, dtMod: def.dtMod || 0, cure: def.cure });
+        } else {
+            char.conditions.push({ id: `ai_${Date.now()}`, name: condName, type: 'other', severity: 2, effects: {}, dtMod: 0, cure: '' });
+        }
+        syncDerived(char);
+        return true;
+    }
+    if (action === 'remove') {
+        const before = char.conditions.length;
+        char.conditions = char.conditions.filter((/** @type {any} */ ac) => ac.name.toLowerCase() !== condName.toLowerCase());
+        if (char.conditions.length !== before) { syncDerived(char); return true; }
+    }
+    return false;
+}
+
 function parseStatBlock(content) {
     const lines = content.split('\n').map(l => l.trim()).filter(l => l && l.toLowerCase() !== 'none');
     let anyChange = false;
@@ -573,6 +732,18 @@ function parseStatBlock(content) {
 
         if (Object.keys(updates).length > 0) {
             if (applyStatUpdates(charKey, updates)) anyChange = true;
+        }
+
+        if (settings.conditionsEnabled) {
+            const condAddRe = /cond\.add:([\w-]+)/gi;
+            const condRemRe = /cond\.remove:([\w-]+)/gi;
+            let cm;
+            while ((cm = condAddRe.exec(statStr)) !== null) {
+                if (applyConditionUpdate(charKey, 'add', cm[1])) anyChange = true;
+            }
+            while ((cm = condRemRe.exec(statStr)) !== null) {
+                if (applyConditionUpdate(charKey, 'remove', cm[1])) anyChange = true;
+            }
         }
     }
     return anyChange;
@@ -649,7 +820,9 @@ function buildMsgStatsHtml(data) {
             .map(([f, v]) => `<span class="fnvrpg-msg-rep-tag r-${v.toLowerCase()}">${escHtml(f)}: ${v}</span>`)
             .join('');
 
-        const footer = `<span class="fnvrpg-msg-caps"><i class="fa-solid fa-coins" style="font-size:9px"></i> ${char.caps}</span>${repTags}`;
+        const condCount = (char.conditions || []).length;
+        const condTag   = condCount > 0 ? `<span class="fnvrpg-msg-cond-tag"><i class="fa-solid fa-heart-crack" style="font-size:9px"></i> ${condCount}</span>` : '';
+        const footer = `<span class="fnvrpg-msg-caps"><i class="fa-solid fa-coins" style="font-size:9px"></i> ${char.caps}</span>${repTags}${condTag}`;
 
         return `<div class="fnvrpg-msg-char-block">
             <div class="fnvrpg-msg-char-header">
@@ -782,8 +955,9 @@ function renderTabContent(tab) {
         case 'special':    renderSpecialTab();     break;
         case 'skills':     renderSkillsTab();      break;
         case 'perks':      renderPerksTab();       break;
-        case 'reputation': renderReputationTab();  break;
-        case 'config':     renderConfigTab();      break;
+        case 'reputation':  renderReputationTab();  break;
+        case 'conditions':  renderConditionsTab();  break;
+        case 'config':      renderConfigTab();      break;
     }
 }
 
@@ -959,6 +1133,163 @@ function renderDerivedStats() {
             <div class="fnvrpg-derived-val">${i.value}</div>
         </div>`).join('')
     );
+}
+
+// ── Render: Conditions ───────────────────────────────────────────────────────
+
+let condCatalogOpen = false;
+
+const COND_TYPE_LABELS = /** @type {Record<string,string>} */ ({
+    chem: 'CHEM', withdrawal: 'WITHDR', wound: 'WOUND', radiation: 'RAD', other: 'OTHER',
+});
+const COND_TYPE_GROUPS = /** @type {Record<string,string>} */ ({
+    chem: 'Chem Effects', withdrawal: 'Withdrawal', wound: 'Wounds', radiation: 'Radiation Sickness', other: 'Other',
+});
+
+/** @param {any} cond */
+function condEffectStr(cond) {
+    const parts = Object.entries(cond.effects || {}).filter(([, v]) => Number(v) !== 0)
+        .map(([k, v]) => `${k.toUpperCase()} ${Number(v) > 0 ? '+' : ''}${v}`);
+    if (cond.dtMod) parts.push(`DT ${cond.dtMod > 0 ? '+' : ''}${cond.dtMod}`);
+    return parts.join(', ') || 'no stat effects';
+}
+
+function renderConditionsTab() {
+    const c     = cur();
+    const conds = c.conditions || [];
+
+    $('#fnvrpg-cond-badge').toggle(conds.length > 0);
+
+    // Effective SPECIAL block
+    const eff      = getEffectiveSPECIAL(c);
+    const hasMods  = SPECIAL_DEFS.some(d => eff[d.key] !== c.special[d.key]);
+    $('#fnvrpg-cond-eff-section').toggle(hasMods);
+    if (hasMods) {
+        $('#fnvrpg-cond-eff-block').html(SPECIAL_DEFS.map(d => {
+            const base = c.special[d.key], ev = eff[d.key], delta = ev - base;
+            const cls  = delta < 0 ? 'eff-neg' : 'eff-pos';
+            return `<div class="fnvrpg-eff-cell">
+                <div class="fnvrpg-spc-abbr">${d.abbr}</div>
+                <div class="fnvrpg-eff-val">${ev}${delta !== 0 ? `<span class="fnvrpg-eff-delta ${cls}">${delta > 0 ? '+' : ''}${delta}</span>` : ''}</div>
+            </div>`;
+        }).join(''));
+    }
+
+    // Active list
+    if (conds.length === 0) {
+        $('#fnvrpg-cond-list').html('');
+        $('#fnvrpg-cond-empty').show();
+    } else {
+        $('#fnvrpg-cond-empty').hide();
+        $('#fnvrpg-cond-list').html(conds.map((/** @type {any} */ cond, /** @type {number} */ i) => {
+            const typeLabel = COND_TYPE_LABELS[cond.type] || 'OTHER';
+            return `<div class="fnvrpg-cond-item sev-${cond.severity || 1}">
+                <div class="fnvrpg-cond-item-main">
+                    <span class="fnvrpg-cond-type-badge cond-${escHtml(cond.type)}">${typeLabel}</span>
+                    <div class="fnvrpg-cond-item-info">
+                        <div class="fnvrpg-cond-item-name">${escHtml(cond.name)}</div>
+                        <div class="fnvrpg-cond-item-effects">${condEffectStr(cond)}</div>
+                        ${cond.cure ? `<div class="fnvrpg-cond-item-cure"><i class="fa-solid fa-kit-medical" style="font-size:9px;margin-right:3px;"></i>${escHtml(cond.cure)}</div>` : ''}
+                    </div>
+                </div>
+                <button class="fnvrpg-cond-del" data-idx="${i}" title="Remove condition">✕</button>
+            </div>`;
+        }).join(''));
+
+        $('#fnvrpg-cond-list').off('click', '.fnvrpg-cond-del').on('click', '.fnvrpg-cond-del', function () {
+            const idx = Number($(this).data('idx'));
+            const c2  = cur();
+            c2.conditions.splice(idx, 1);
+            syncDerived(c2); saveChatData(); renderConditionsTab(); refreshMsgPanels();
+        });
+    }
+
+    if (condCatalogOpen) renderConditionCatalog();
+}
+
+function renderConditionCatalog() {
+    const c = cur();
+    const types = ['chem', 'withdrawal', 'wound', 'radiation', 'other'];
+    let html = '';
+    for (const type of types) {
+        const items = CONDITION_CATALOG.filter(cd => cd.type === type);
+        if (!items.length) continue;
+        html += `<div class="fnvrpg-cond-cat-header">${escHtml(COND_TYPE_GROUPS[type] || type)}</div>`;
+        for (const item of items) {
+            const active = (c.conditions || []).some((/** @type {any} */ ac) => ac.id === item.id);
+            html += `<div class="fnvrpg-cond-catalog-item ${active ? 'already-active' : ''}">
+                <div class="fnvrpg-cond-catalog-info">
+                    <div class="fnvrpg-cond-catalog-name">
+                        <span class="fnvrpg-cond-type-badge cond-${escHtml(item.type)}">${COND_TYPE_LABELS[item.type]}</span>
+                        ${escHtml(item.name)}
+                    </div>
+                    <div class="fnvrpg-cond-catalog-effects">${condEffectStr(item)}</div>
+                    <div class="fnvrpg-cond-catalog-cure">${escHtml(item.cure)}</div>
+                </div>
+                ${active
+                    ? '<span class="fnvrpg-cond-active-mark">✓ active</span>'
+                    : `<button class="fnvrpg-cond-add-btn fnvrpg-btn fnvrpg-btn-add" data-cond-id="${escHtml(item.id)}">+</button>`}
+            </div>`;
+        }
+    }
+    $('#fnvrpg-cond-catalog').html(html);
+    $('#fnvrpg-cond-catalog').off('click', '.fnvrpg-cond-add-btn').on('click', '.fnvrpg-cond-add-btn', function () {
+        addConditionById(String($(this).data('cond-id')));
+    });
+}
+
+/** @param {string} condId */
+function addConditionById(condId) {
+    const def = CONDITION_CATALOG.find(cd => cd.id === condId);
+    if (!def) return;
+    const c = cur();
+    if (!c.conditions) c.conditions = [];
+    if (c.conditions.some((/** @type {any} */ ac) => ac.id === condId)) {
+        showToast(`${def.name} is already active.`, 'info'); return;
+    }
+    c.conditions.push({ id: def.id, name: def.name, type: def.type, severity: def.severity,
+        effects: { ...def.effects }, dtMod: def.dtMod || 0, cure: def.cure });
+    syncDerived(c); saveChatData(); renderConditionsTab(); refreshMsgPanels();
+    showToast(`${def.name} added.`, 'info');
+}
+
+function addCustomCondition() {
+    const name = String($('#fnvrpg-cond-custom-name').val() ?? '').trim();
+    if (!name) { showToast('Enter a condition name.', 'warning'); return; }
+    const type = String($('#fnvrpg-cond-custom-type').val() ?? 'other');
+    const effects = /** @type {Record<string,number>} */ ({});
+    $('.fnvrpg-cond-spec-input[data-stat]').each(function () {
+        const stat = String($(this).data('stat'));
+        const val  = parseInt(String($(this).val())) || 0;
+        if (val !== 0) effects[stat] = val;
+    });
+    const dtMod = parseInt(String($('#fnvrpg-cond-custom-dt').val())) || 0;
+    const cure  = String($('#fnvrpg-cond-custom-cure').val() ?? '').trim();
+    const c = cur();
+    if (!c.conditions) c.conditions = [];
+    c.conditions.push({ id: `custom_${Date.now()}`, name, type, severity: 2,
+        effects, dtMod, cure });
+    syncDerived(c); saveChatData(); renderConditionsTab(); refreshMsgPanels();
+    $('#fnvrpg-cond-custom-name, #fnvrpg-cond-custom-cure').val('');
+    $('.fnvrpg-cond-spec-input').val('0');
+    showToast(`${name} added.`, 'info');
+}
+
+function initConditionEvents() {
+    $('#fnvrpg-cond-catalog-toggle').on('click', function () {
+        condCatalogOpen = !condCatalogOpen;
+        $('#fnvrpg-cond-catalog-wrap').toggle(condCatalogOpen);
+        $(this).find('i').toggleClass('fa-book-open fa-book');
+        if (condCatalogOpen) renderConditionCatalog();
+    });
+    $('#fnvrpg-cond-custom-add').on('click', addCustomCondition);
+    $('#fnvrpg-cond-custom-name').on('keydown', (e) => { if (e.key === 'Enter') addCustomCondition(); });
+}
+
+function updateConditionsTabVisibility() {
+    const show = settings.conditionsEnabled ?? false;
+    $('.fnvrpg-tab-conditions').toggle(show);
+    if (!show && getActiveTab() === 'conditions') $('[data-tab="status"]').trigger('click');
 }
 
 // ── Render: Skills ────────────────────────────────────────────────────────────
@@ -1410,6 +1741,7 @@ function renderConfigTab() {
     $('#fnvrpg-cfg-inject').prop('checked', settings.injectContext);
     $('#fnvrpg-cfg-position').val(settings.injectionPosition);
     $('#fnvrpg-cfg-perk-descs').prop('checked', settings.injectPerkDescs ?? false);
+    $('#fnvrpg-cfg-conditions').prop('checked', settings.conditionsEnabled ?? false);
     $('#fnvrpg-notes').val(cur().notes || '');
     $('.fnvrpg-xp-rate-btn').removeClass('active');
     $(`.fnvrpg-xp-rate-btn[data-rate="${settings.xpRate || 'medium'}"]`).addClass('active');
@@ -1418,9 +1750,14 @@ function renderConfigTab() {
 
 // ── Full UI refresh ───────────────────────────────────────────────────────────
 
+function updateConditionBadge() {
+    $('#fnvrpg-cond-badge').toggle((cur().conditions || []).length > 0);
+}
+
 function refreshUI() {
     updateCharSelector();
     updateInjectBadge();
+    updateConditionBadge();
     renderTabContent(getActiveTab());
     refreshMsgPanels();
 }
@@ -1609,6 +1946,10 @@ function initConfigEvents() {
     });
     $('#fnvrpg-cfg-perk-descs').on('change', function () {
         settings.injectPerkDescs = $(this).is(':checked'); saveSettings();
+    });
+    $('#fnvrpg-cfg-conditions').on('change', function () {
+        settings.conditionsEnabled = $(this).is(':checked');
+        saveSettings(); updateConditionsTabVisibility();
     });
     $('#fnvrpg-cfg-position').on('change', function () {
         settings.injectionPosition = Math.max(0, Math.min(30, parseInt($(this).val()) || 1));
@@ -1851,8 +2192,10 @@ function injectExtSettingsEntry() {
     initSkillsEvents();
     initPerksEvents();
     initRepEvents();
+    initConditionEvents();
     initConfigEvents();
 
+    updateConditionsTabVisibility();
     refreshUI();
 
     eventSource.on(event_types.CHAT_COMPLETION_PROMPT_READY, onPromptReady);
